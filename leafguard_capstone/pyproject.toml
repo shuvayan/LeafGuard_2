@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "leafguard-capstone"
+version = "0.1.0"
+description = "A package for plant disease detection and analysis"
+authors = ["Your Name <your_email@example.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [
+    { include = "app" },
+    { include = "config" },
+    { include = "data_processing" },
+    { include = "fastspeech_tts" },
+    { include = "gradio_ui" },
+    { include = "model_training" },
+    { include = "prediction_service" },
+    { include = "tests" }
+]
+
+[tool.poetry.dependencies]
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
