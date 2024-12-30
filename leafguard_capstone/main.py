@@ -87,25 +87,26 @@ def main():
 
         # Initialize predictor
         predictor = ImagePredictor(voting_ensemble, averaging_ensemble)
-    
+
         # Run prediction
         result = make_prediction.predict_image(image_path)
         print(f"Prediction Results: {result}")
+        return result
 
 
-if __name__ == "__main__":
-    main()
+#if __name__ == "__main__":
+#    main()
 
 #python main.py --task predict --image /Users/sangeetadutta/Downloads/IISC/leafguard_capstone/datasets/Working_Images/crn.jpg --models_dir /Users/sangeetadutta/Downloads/IISC/leafguard_capstone/saved_models
 
 
-#if __name__ == 'main':
-#    # Make prediction
-#    try:
-#        results = predictor.predict_image(image_path)
-#        print("\nPrediction Results:")
-#        print(f"Image: {results['image_path']}")
-#        print(f"Voting Ensemble Prediction: {results['voting_prediction']}")
-#        print(f"Averaging Ensemble Prediction: {results['averaging_prediction']}")
-#    except Exception as e:
-#        print(f"Error during prediction: {str(e)}")
+if __name__ == 'main':
+    # Make prediction
+    try:
+        results = main()
+        print("\nPrediction Results:")
+        print(f"Image: {results['image_path']}")
+        print(f"Voting Ensemble Prediction: {results['voting_prediction']}")
+        print(f"Averaging Ensemble Prediction: {results['averaging_prediction']}")
+    except Exception as e:
+        print(f"Error during prediction: {str(e)}")
