@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
+
 import os
 from typing import Tuple, List, Dict
 import tensorflow as tf
 import mlflow,numpy as np
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 from matplotlib import pyplot as plt
-from data_processing.generators import DataPreprocessor
+from leafguard_capstone.data_processing.generators import DataPreprocessor
 
 class VotingEnsemble:
     def __init__(self, model_dir: str, model_configs: List[Dict]):
