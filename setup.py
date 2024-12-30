@@ -6,7 +6,7 @@ from pathlib import Path
 from setuptools import find_packages, setup
 
 # Package meta-data.
-NAME = 'plantdisease_classification_model'
+NAME = 'leafguard_capstone'
 DESCRIPTION = "Plant Disease Classification using Ensembles of MobileNetV2, DenseNet and EfficientNet"
 EMAIL = "------"
 AUTHOR = "----------"

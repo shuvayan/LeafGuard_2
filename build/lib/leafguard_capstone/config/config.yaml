@@ -1,0 +1,21 @@
+# Configuration for project paths, data sources, and model parameters
+
+paths:
+  data_source: "data/input"
+  model_save_path: "models/saved_model"
+  logs_path: "logs/training_logs"
+  temp_path: "temp"
+
+model_params:
+  learning_rate: 0.001
+  epochs: 50
+  batch_size: 32
+
+callbacks:
+  early_stopping:
+    enabled: true
+    patience: 5
+  model_checkpoint:
+    enabled: true
+    save_best_only: true
+    filepath: "models/best_model.h5"
