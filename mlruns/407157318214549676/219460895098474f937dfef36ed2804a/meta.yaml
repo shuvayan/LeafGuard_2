@@ -1,5 +1,5 @@
 artifact_uri: file:///Users/sangeetadutta/Downloads/IISC/leafguard_capstone/mlruns/407157318214549676/219460895098474f937dfef36ed2804a/artifacts
-end_time: null
+end_time: 1735560106305
 entry_point_name: ''
 experiment_id: '407157318214549676'
 lifecycle_stage: active
@@ -10,6 +10,6 @@ source_name: ''
 source_type: 4
 source_version: ''
 start_time: 1735557807900
-status: 1
+status: 3
 tags: []
 user_id: sangeetadutta
