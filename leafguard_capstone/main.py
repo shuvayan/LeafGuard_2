@@ -2,13 +2,12 @@
 import argparse
 import sys
 import os
+from pathlib import Path
 
 from leafguard_capstone.model_training.ensembles import compare_ensembles_with_mlflow, VotingEnsemble, AveragingEnsemble
 from leafguard_capstone.data_processing.generators import DataPreprocessor
 from leafguard_capstone.prediction_service.inference import *
 from leafguard_capstone.config.core import TRAINED_MODEL_DIR,DATASET_DIR
-
-from pathlib import Path
 
 
 if __name__ == 'main':
@@ -23,5 +22,4 @@ if __name__ == 'main':
     except Exception as e:
         print(f"Error during prediction: {str(e)}")
 
-#python main.py --task predict --image /Users/sangeetadutta/Downloads/IISC/leafguard_capstone/datasets/Working_Images/crn.jpg --models_dir /Users/sangeetadutta/Downloads/IISC/leafguard_capstone/saved_models
 

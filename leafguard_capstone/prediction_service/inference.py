@@ -8,7 +8,7 @@ from leafguard_capstone.config.core import TRAINED_MODEL_DIR,DATASET_DIR
 
 
 # Initialize data preprocessor
-data_dir = "/Users/sangeetadutta/Downloads/IISC/leafguard_capstone/datasets/Plant_leave_diseases_dataset_without_augmentation/"  # Update with your dataset path
+data_dir = "//Home/leafguard_capstone/datasets/Plant_leave_diseases_dataset_without_augmentation/"  # Update with your dataset path
 preprocessor = DataPreprocessor(data_dir)
 meta_epoch = 100
 
@@ -22,9 +22,9 @@ train_gen, valid_gen, test_gen = preprocessor.create_data_generators()
 
 # Configure saved models
 model_configs = [
-    {'name': 'mobilenetV2', 'file': '/Users/sangeetadutta/Downloads/IISC/leafguard_capstone/leafguard_capstone/saved_models/base_model_1_mobilenetV2.h5'},
-    {'name': 'densenet', 'file': '/Users/sangeetadutta/Downloads/IISC/leafguard_capstone/leafguard_capstone/saved_models/base_model_2_densenet.h5'},
-    {'name': 'xception', 'file': '/Users/sangeetadutta/Downloads/IISC/leafguard_capstone/leafguard_capstone/saved_models/base_model_3_xception.h5'}
+    {'name': 'mobilenetV2', 'file': '//Home/leafguard_capstone/leafguard_capstone/saved_models/base_model_1_mobilenetV2.h5'},
+    {'name': 'densenet', 'file': '//Home/leafguard_capstone/leafguard_capstone/saved_models/base_model_2_densenet.h5'},
+    {'name': 'xception', 'file': '//Home/leafguard_capstone/leafguard_capstone/saved_models/base_model_3_xception.h5'}
 ]
 
 # Initialize both ensemble methods
@@ -32,7 +32,7 @@ voting_ensemble = VotingEnsemble('saved_models', model_configs)
 averaging_ensemble = AveragingEnsemble('saved_models', model_configs)
 
 # Compare ensembles using MLflow
-compare_ensembles_with_mlflow(voting_ensemble, averaging_ensemble, test_gen)
+#compare_ensembles_with_mlflow(voting_ensemble, averaging_ensemble, test_gen)
 
 from PIL import Image
 class ImagePredictor:
@@ -108,7 +108,6 @@ class ImagePredictor:
         }
 
 predictor = ImagePredictor(voting_ensemble, averaging_ensemble)
-
 
 
 def make_prediction(image_path):
