@@ -7,11 +7,8 @@ from leafguard_capstone.model_training.ensembles import compare_ensembles_with_m
 from leafguard_capstone.data_processing.generators import DataPreprocessor
 from leafguard_capstone.prediction_service.inference import *
 
-import argparse
-import sys
-import os
-from leafguard_capstone.model_training.ensembles import compare_ensembles_with_mlflow, VotingEnsemble, AveragingEnsemble, ImagePredictor
-from leafguard_capstone.data_processing.generators import DataPreprocessor
+from pathlib import Path
+
 
 def main():
     parser = argparse.ArgumentParser(description="Run LeafGuard Capstone project.")
@@ -31,7 +28,7 @@ def main():
     parser.add_argument(
         "--dataset_dir",
         type=str,
-        default=data_dir,
+        default="/Users/sangeetadutta/Downloads/IISC/leafguard_capstone/datasets",
         help="Path to the dataset directory (required for training)"
     )
 
@@ -70,10 +67,7 @@ def main():
         compare_ensembles_with_mlflow(voting_ensemble, averaging_ensemble, test_gen)
 
     elif args.task == "predict":
-        if not args.image_path:
-            print("Error: --image_path is required for the predict task.")
-            sys.exit(1)
-
+        # Ensure image path is provided
         image_path = args.image_path
         if not os.path.exists(image_path):
             raise FileNotFoundError(f"Image file not found: {image_path}")
@@ -95,11 +89,14 @@ def main():
         predictor = ImagePredictor(voting_ensemble, averaging_ensemble)
 
         # Run prediction
-        result = predictor.predict_image(image_path)
+        result = make_prediction.predict_image(image_path)
         print(f"Prediction Results: {result}")
+
 
 if __name__ == "__main__":
     main()
+
+#python main.py --task predict --image /Users/sangeetadutta/Downloads/IISC/leafguard_capstone/datasets/Working_Images/crn.jpg --models_dir /Users/sangeetadutta/Downloads/IISC/leafguard_capstone/saved_models
 
 
 #if __name__ == 'main':

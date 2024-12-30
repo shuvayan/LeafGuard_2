@@ -6,7 +6,6 @@ from leafguard_capstone.data_processing.generators import DataPreprocessor
 from leafguard_capstone.model_training.ensembles import VotingEnsemble,AveragingEnsemble,compare_ensembles_with_mlflow
 from leafguard_capstone.config.core import TRAINED_MODEL_DIR,DATASET_DIR
 
-print(DATASET_DIR)
 
 # Initialize data preprocessor
 data_dir = "/Users/sangeetadutta/Downloads/IISC/leafguard_capstone/datasets/Plant_leave_diseases_dataset_without_augmentation/"  # Update with your dataset path
