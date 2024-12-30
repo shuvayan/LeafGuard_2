@@ -87,7 +87,7 @@ def main():
 
         # Initialize predictor
         predictor = ImagePredictor(voting_ensemble, averaging_ensemble)
-
+    
         # Run prediction
         result = make_prediction.predict_image(image_path)
         print(f"Prediction Results: {result}")
