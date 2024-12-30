@@ -11,12 +11,11 @@ from typing import Dict, List
 from pydantic import BaseModel
 from strictyaml import YAML, load
 
-import leafguard_capstone
 
 # Project Directories
-PACKAGE_ROOT = Path(leafguard_capstone.__file__).resolve().parent
+PACKAGE_ROOT = Path(__file__).resolve().parent
 ROOT = PACKAGE_ROOT.parent
-CONFIG_FILE_PATH = PACKAGE_ROOT / "config.yml"
+CONFIG_FILE_PATH = PACKAGE_ROOT / "config.yaml"
 print(CONFIG_FILE_PATH)
 print(ROOT)
 

@@ -5,20 +5,6 @@ description = "A package for plant disease detection and analysis"
 authors = ["Your Name <your_email@example.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [
-    { include = "app" },
-    { include = "build" },
-    { include = "config" },
-    { include = "data_processing" },
-    { include = "datasets" },
-    { include = "fastspeech_tts" },
-    { include = "gradio_ui" },
-    { include = "model_training" },
-    { include = "prediction_service" },
-    { include = "saved_models" },
-
-    { include = "tests" }
-]
 
 [tool.poetry.dependencies]
 [tool.poetry.dev-dependencies]

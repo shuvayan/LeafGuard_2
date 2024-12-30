@@ -13,8 +13,8 @@ fastspeech_tts/demo.py
 fastspeech_tts/fastspeec_integration.py
 fastspeech_tts/utils.py
 gradio_ui/__init__.py
-gradio_ui/app.py
-gradio_ui/disease_classification.py
+gradio_ui/dash_app.py
+gradio_ui/gradio_app.py
 gradio_ui/llm_integration.py
 model_training/__init__.py
 model_training/ensembles.py
