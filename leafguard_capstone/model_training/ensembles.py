@@ -6,7 +6,8 @@ import tensorflow as tf
 import mlflow,numpy as np
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 from matplotlib import pyplot as plt
-from leafguard_capstone.data_processing.generators import DataPreprocessor
+from data_processing.generators import DataPreprocessor
+
 
 class VotingEnsemble:
     def __init__(self, model_dir: str, model_configs: List[Dict]):

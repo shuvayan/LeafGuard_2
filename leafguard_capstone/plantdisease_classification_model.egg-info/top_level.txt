@@ -1,8 +1,0 @@
-app
-config
-data_processing
-datasets
-fastspeech_tts
-gradio_ui
-model_training
-prediction_service

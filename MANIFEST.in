@@ -1,0 +1,22 @@
+include *.txt
+include *.md
+include *.pkl
+recursive-include ./leafguard_capstone *
+
+include leafguard_capstone/datasets
+include leafguard_capstone/saved_models/
+include leafguard_capstone/VERSION
+include leafguard_capstone/config
+include leafguard_capstone/app
+include leafguard_capstone/gradio_ui
+include leafguard_capstone/model_training
+include leafguard_capstone/prediction_service
+include leafguard_capstone/processed_data
+include leafguard_capstone/tests
+
+include leafguard_capstone/requirements.txt
+exclude *.log
+exclude *.cfg
+
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
