@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: plantdisease_classification_model
-Version: 0.0.1
+Version: 0.0.2
 Summary: Plant Disease Classification using Ensembles of MobileNetV2, DenseNet and EfficientNet
 Author: ----------
 Author-email: ------

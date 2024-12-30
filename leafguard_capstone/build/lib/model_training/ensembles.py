@@ -5,7 +5,7 @@ import tensorflow as tf
 import mlflow,numpy as np
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 from matplotlib import pyplot as plt
-from leafguard_capstone.data_processing.generators import DataPreprocessor
+from data_processing.generators import DataPreprocessor
 
 class VotingEnsemble:
     def __init__(self, model_dir: str, model_configs: List[Dict]):
@@ -221,7 +221,7 @@ def plot_ensemble_comparison(metrics_dict):
     plt.show()
 
 # Initialize data preprocessor
-data_dir = "/content/Plant_leave_diseases_dataset_without_augmentation/"  # Update with your dataset path
+data_dir = "/Users/sangeetadutta/Downloads/IISC/LeafGuard_2/leafguard_capstone/datasets/Plant_leave_diseases_dataset_without_augmentation/"  # Update with your dataset path
 preprocessor = DataPreprocessor(data_dir)
 meta_epoch = 100
 
@@ -235,9 +235,9 @@ train_gen, valid_gen, test_gen = preprocessor.create_data_generators()
 
 # Configure saved models
 model_configs = [
-    {'name': 'mobilenetV2', 'file': '/content/saved_models/base_model_1_mobilenetV2.h5'},
-    {'name': 'densenet', 'file': '/content/saved_models/base_model_2_densenet.h5'},
-    {'name': 'xception', 'file': '/content/saved_models/base_model_3_xception.h5'}
+    {'name': 'mobilenetV2', 'file': '/Users/sangeetadutta/Downloads/IISC/LeafGuard_2/leafguard_capstone/saved_models/base_model_1_mobilenetV2.h5'},
+    {'name': 'densenet', 'file': '/Users/sangeetadutta/Downloads/IISC/LeafGuard_2/leafguard_capstone/saved_models/base_model_2_densenet.h5'},
+    {'name': 'xception', 'file': '/Users/sangeetadutta/Downloads/IISC/LeafGuard_2/leafguard_capstone/saved_models/base_model_3_xception.h5'}
 ]
 
 # Initialize both ensemble methods

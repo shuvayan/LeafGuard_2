@@ -3,7 +3,7 @@ from dash import dcc, html, Input, Output, State, ctx
 import dash_uploader as du
 import os
 from gtts import gTTS
-from leafguard_capstone.prediction_service.inference import predictor,make_prediction,DATASET_DIR
+from prediction_service.inference import predictor,make_prediction,DATASET_DIR
 
 # Initialize Dash app
 app = dash.Dash(__name__, suppress_callback_exceptions=True)

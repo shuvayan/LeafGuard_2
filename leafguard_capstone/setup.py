@@ -23,7 +23,6 @@ long_description = DESCRIPTION
 # Load the package's VERSION file as a dictionary.
 about = {}
 ROOT_DIR = Path(__file__).resolve().parent
-print(ROOT_DIR)
 REQUIREMENTS_DIR = ROOT_DIR
 PACKAGE_DIR = ROOT_DIR 
 
@@ -48,7 +47,7 @@ setup(
     author_email=EMAIL,
     python_requires=REQUIRES_PYTHON,
     packages=find_packages(exclude=("tests",)),
-    package_data={"regression_model": ["VERSION"]},
+    package_data={"leafguard_capstone": ["VERSION"]},
     install_requires=list_reqs(),
     extras_require={},
     include_package_data=True,
