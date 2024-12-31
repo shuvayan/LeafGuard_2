@@ -5,6 +5,7 @@ import logging
 import os
 import time
 import tensorflow as tf
+from anthropic import Anthropic
 
 from pathlib import Path
 from leafguard_capstone.prediction_service.predictions import make_prediction
@@ -65,6 +66,35 @@ Examples:
     
     return parser.parse_args()
 
+DISEASE_CLASSES = [
+    'Apple___Apple_scab', 'Apple___Black_rot', 'Apple___Cedar_apple_rust', 'Apple___healthy',
+    'Background_without_leaves', 'Blueberry___healthy', 'Cherry___healthy', 'Cherry___Powdery_mildew',
+    'Corn___Cercospora_leaf_spot Gray_leaf_spot', 'Corn___Common_rust', 'Corn___healthy',
+    'Corn___Northern_Leaf_Blight', 'Grape___Black_rot', 'Grape___Esca_(Black_Measles)',
+    'Grape___healthy', 'Grape___Leaf_blight_(Isariopsis_Leaf_Spot)', 'Orange___Haunglongbing_(Citrus_greening)',
+    'Peach___Bacterial_spot', 'Peach___healthy', 'Pepper,_bell___Bacterial_spot', 'Pepper,_bell___healthy',
+    'Potato___Early_blight', 'Potato___healthy', 'Potato___Late_blight', 'Raspberry___healthy',
+    'Soybean___healthy', 'Squash___Powdery_mildew', 'Strawberry___healthy', 'Strawberry___Leaf_scorch',
+    'Tomato___Bacterial_spot', 'Tomato___Early_blight', 'Tomato___healthy', 'Tomato___Late_blight',
+    'Tomato___Leaf_Mold', 'Tomato___Septoria_leaf_spot', 'Tomato___Spider_mites Two-spotted_spider_mite',
+    'Tomato___Target_Spot', 'Tomato___Tomato_mosaic_virus', 'Tomato___Tomato_Yellow_Leaf_Curl_Virus'
+]
+
+def get_disease_treatment(disease_name):
+    anthropic = Anthropic(api_key='')
+    prompt = f"Generate a complete description, diagnosis and treatment plan for: {disease_name}"
+    
+    try:
+        message = anthropic.messages.create(
+            model="claude-3-sonnet-20240229",
+            max_tokens=1000,
+            temperature=0,
+            messages=[{"role": "user", "content": prompt}]
+        )
+        return message.content
+    except Exception as e:
+        return f"Treatment information unavailable: {str(e)}"
+
 def format_prediction_output(results: dict) -> str:
     try:
         output = "\nPrediction Results:\n"
@@ -72,7 +102,12 @@ def format_prediction_output(results: dict) -> str:
         output += f"Image: {results['image_path']}\n"
         output += f"Voting Ensemble Prediction: {results['voting_prediction']}\n"
         output += f"Averaging Ensemble Prediction: {results['averaging_prediction']}\n"
-            
+        
+        if 'treatment_info' in results:
+            output += "\nTreatment Information:\n"
+            output += "-" * 50 + "\n"
+            output += results['treatment_info']
+        
         if 'preprocessing' in results:
             output += f"\nPreprocessing Details:\n"
             output += f"Augmentation Applied: {results['preprocessing']['augmentation_applied']}\n"
@@ -96,6 +131,10 @@ def main():
         
         print("\n⚙️  Processing...")
         results = make_prediction(args.input_path, args.augment)
+        
+        disease_name = results['voting_prediction']
+        if disease_name in DISEASE_CLASSES and 'healthy' not in disease_name.lower():
+            results['treatment_info'] = get_disease_treatment(disease_name)
         
         print("\n📊 Results:")
         print(format_prediction_output(results))
