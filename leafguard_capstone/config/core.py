@@ -16,18 +16,18 @@ from typing import Dict, List
 from pydantic import BaseModel
 from strictyaml import YAML, load
 
-import leafguard_capstone
+import leafguard_capstone as lf
 
 # Project Directories
-PACKAGE_ROOT = Path(__file__).resolve().parent
+PACKAGE_ROOT = Path(lf.__file__).resolve().parent
 ROOT = PACKAGE_ROOT.parent
 CONFIG_FILE_PATH = PACKAGE_ROOT / "config.yaml"
 
 print(PACKAGE_ROOT)
 print(ROOT)
 
-DATASET_DIR = PACKAGE_ROOT / "leafguard/datasets"
-TRAINED_MODEL_DIR = PACKAGE_ROOT / "leafguard/saved_models"
+DATASET_DIR = PACKAGE_ROOT / "processed_data"
+TRAINED_MODEL_DIR = PACKAGE_ROOT / "saved_models"
 
 print(DATASET_DIR)
 print(TRAINED_MODEL_DIR)

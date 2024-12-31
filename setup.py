@@ -11,7 +11,26 @@ DESCRIPTION = "Plant Disease Classification using Ensembles of MobileNetV2, Dens
 EMAIL = "------"
 AUTHOR = "----------"
 REQUIRES_PYTHON = ">=3.11.8"
+VERSION = '0.0.3'
 
+setup(
+    name="leafguard_capstone",
+    version="0.0.3",
+    packages=find_packages(),
+    install_requires=[
+        'tensorflow',
+        'numpy',
+        'pandas',
+        'scikit-learn',
+        'matplotlib',
+        'pillow',
+        'mlflow',
+        'tqdm',
+        'logging',
+        'pathlib'
+    ],
+    python_requires='>=3.11.8',
+)
 
 # The rest no need to touch too much :)
 # ------------------------------------------------
@@ -38,8 +57,8 @@ def list_reqs(fname="requirements.txt"):
 
 # Where the magic happens:
 setup(
-    name=NAME,
-    version=about["__version__"],
+    name="leafguard_capstone",
+    version="0.0.3",
     description=DESCRIPTION,
     long_description=long_description,
     long_description_content_type="text/markdown",
