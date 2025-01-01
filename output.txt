@@ -1,0 +1,136 @@
+2025-01-01 10:40:16,379 - leafguard_capstone.data_processing.generators - INFO - Found 39 classes
+2025-01-01 10:40:16,379 - VotingEnsemble - INFO - Initializing BaseEnsemble
+~/Home/leafguard_capstone/leafguard_capstone
+~/Home/leafguard_capstone
+~/Home/leafguard_capstone/leafguard_capstone/processed_data
+~/Home/leafguard_capstone/leafguard_capstone/saved_models
+
+🌿 Starting LeafGuard Plant Disease Prediction...
+📸 Analyzing image: ~/Home/leafguard_capstone/datasets/Working_Images/crn.jpg
+🔄 Augmentation: enabled
+
+⚙️  Processing...
+Loading models:   0%|          | 0/3 [00:00<?, ?it/s]2025-01-01 10:40:16,408 - h5py._conv - DEBUG - Creating converter from 3 to 5
+2025-01-01 10:40:16,787 - absl - WARNING - Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+2025-01-01 10:40:16,790 - VotingEnsemble - INFO - Loaded model: mobilenetV2
+Loading models:  33%|███▎      | 1/3 [00:00<00:00,  2.57it/s]2025-01-01 10:40:17,520 - absl - WARNING - Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+2025-01-01 10:40:17,523 - VotingEnsemble - INFO - Loaded model: densenet
+Loading models:  67%|██████▋   | 2/3 [00:01<00:00,  1.69it/s]2025-01-01 10:40:17,902 - absl - WARNING - Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+2025-01-01 10:40:17,904 - VotingEnsemble - INFO - Loaded model: xception
+Loading models: 100%|██████████| 3/3 [00:01<00:00,  2.02it/s]Loading models: 100%|██████████| 3/3 [00:01<00:00,  1.99it/s]
+2025-01-01 10:40:17,905 - VotingEnsemble - INFO - Voting Ensemble initialized successfully
+2025-01-01 10:40:17,905 - AveragingEnsemble - INFO - Initializing BaseEnsemble
+Loading models:   0%|          | 0/3 [00:00<?, ?it/s]2025-01-01 10:40:17,905 - AveragingEnsemble - INFO - Loaded model from cache: mobilenetV2
+2025-01-01 10:40:17,905 - AveragingEnsemble - INFO - Loaded model from cache: densenet
+2025-01-01 10:40:17,905 - AveragingEnsemble - INFO - Loaded model from cache: xception
+Loading models: 100%|██████████| 3/3 [00:00<00:00, 27118.34it/s]
+2025-01-01 10:40:17,905 - AveragingEnsemble - INFO - Averaging Ensemble initialized successfully
+2025-01-01 10:40:17,905 - leafguard_capstone.prediction_service.predictions - INFO - Components initialized successfully
+
+📊 Results:
+
+Prediction Results:
+--------------------------------------------------
+Image: ~/Home/leafguard_capstone/datasets/Working_Images/crn.jpg
+Voting Ensemble Prediction: Corn___healthy
+Averaging Ensemble Prediction: Corn___healthy
+
+
+✅ Analysis complete! (Time: 3.76s)
+
+
+
+2025-01-01 11:00:36,093 - leafguard_capstone.data_processing.generators - INFO - Found 39 classes
+2025-01-01 11:00:36,093 - VotingEnsemble - INFO - Initializing BaseEnsemble
+~/Home/leafguard_capstone/leafguard_capstone
+~/Home/leafguard_capstone
+~/Home/leafguard_capstone/leafguard_capstone/processed_data
+~/Home/leafguard_capstone/leafguard_capstone/saved_models
+
+🌿 Starting LeafGuard Plant Disease Prediction...
+📸 Analyzing image: ~/Home/leafguard_capstone/datasets/Working_Images/glb.jpeg
+🔄 Augmentation: enabled
+
+⚙️  Processing...
+Loading models:   0%|          | 0/3 [00:00<?, ?it/s]2025-01-01 11:00:36,122 - h5py._conv - DEBUG - Creating converter from 3 to 5
+2025-01-01 11:00:36,517 - absl - WARNING - Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+2025-01-01 11:00:36,520 - VotingEnsemble - INFO - Loaded model: mobilenetV2
+Loading models:  33%|███▎      | 1/3 [00:00<00:00,  2.47it/s]2025-01-01 11:00:37,254 - absl - WARNING - Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+2025-01-01 11:00:37,257 - VotingEnsemble - INFO - Loaded model: densenet
+Loading models:  67%|██████▋   | 2/3 [00:01<00:00,  1.67it/s]2025-01-01 11:00:37,639 - absl - WARNING - Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+2025-01-01 11:00:37,641 - VotingEnsemble - INFO - Loaded model: xception
+Loading models: 100%|██████████| 3/3 [00:01<00:00,  1.99it/s]Loading models: 100%|██████████| 3/3 [00:01<00:00,  1.97it/s]
+2025-01-01 11:00:37,641 - VotingEnsemble - INFO - Voting Ensemble initialized successfully
+2025-01-01 11:00:37,641 - AveragingEnsemble - INFO - Initializing BaseEnsemble
+Loading models:   0%|          | 0/3 [00:00<?, ?it/s]2025-01-01 11:00:37,642 - AveragingEnsemble - INFO - Loaded model from cache: mobilenetV2
+2025-01-01 11:00:37,642 - AveragingEnsemble - INFO - Loaded model from cache: densenet
+2025-01-01 11:00:37,642 - AveragingEnsemble - INFO - Loaded model from cache: xception
+Loading models: 100%|██████████| 3/3 [00:00<00:00, 28276.21it/s]
+2025-01-01 11:00:37,642 - AveragingEnsemble - INFO - Averaging Ensemble initialized successfully
+2025-01-01 11:00:37,642 - leafguard_capstone.prediction_service.predictions - INFO - Components initialized successfully
+
+📊 Results:
+
+Prediction Results:
+--------------------------------------------------
+Image: ~/Home/leafguard_capstone/datasets/Working_Images/glb.jpeg
+Voting Ensemble Prediction: Grape___Leaf_blight_(Isariopsis_Leaf_Spot)
+Averaging Ensemble Prediction: Grape___Leaf_blight_(Isariopsis_Leaf_Spot)
+
+Treatment Information:
+--------------------------------------------------
+**PLANT DISEASE ANALYSIS REPORT**
+
+**Disease Name:** Grape Leaf Blight (Isariopsis Leaf Spot)
+
+**DESCRIPTION:**
+
+Grape leaf blight, caused by the fungus _Isariopsis clavispora_, is a common disease affecting grapes, particularly in warm, humid climates. It primarily affects the leaves, causing characteristic spots and lesions that can lead to premature defoliation and reduced fruit production.
+
+**DIAGNOSIS:**
+
+**Main Symptoms:**
+
+* Circular to irregular brown or tan spots on leaves
+* Spots initially small but enlarge and merge to form larger lesions
+* Lesions may become sunken or raised
+* Leaves may become yellowed or brown around lesions
+* Defoliation in severe cases
+
+**Identifying Characteristics:**
+
+* Abundant sporulation on lesions in humid conditions
+* Conidia are cylindrical with two or three septa
+* Lesions may coalesce, forming irregular brown patches on leaves
+
+**Potential Damage Indicators:**
+
+* Reduced photosynthetic capacity due to leaf damage
+* Reduced fruit quality and yield due to premature defoliation
+* Increased susceptibility to other diseases and pests
+
+**TREATMENT PLAN:**
+
+**1. Cultural Controls:**
+
+* **Pruning and thinning:** Remove infected leaves and canes to improve air circulation and reduce humidity.
+* **Crop rotation:** Plant grapes in different locations each year to avoid build-up of the fungus.
+* **Avoid overwatering:** Excess moisture promotes disease development.
+* **Soil drainage:** Improve soil drainage to prevent waterlogging.
+
+**2. Chemical Controls:**
+
+* **Fungicides:** Apply appropriate fungicides, such as strobilurins or triazoles, at recommended intervals.
+* **Timing:** Applications should be made before infection occurs (preventive) or as soon as symptoms appear (curative).
+* **Method:** Follow manufacturer's instructions for application rates and methods.
+
+**3. Prevention:**
+
+* **Clean planting material:** Use disease-free plants or cuttings.
+* **Monitor regularly:** Inspect vineyards frequently for early signs of infection.
+* **Use resistant varieties:** Plant grape varieties that have resistance to leaf blight.
+* **Long-term management:** Implement an integrated pest management (IPM) system to reduce disease pressure over time.
+
+✅ Analysis complete! (Time: 11.86s)
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1735709450.808758   79203 init.cc:229] grpc_wait_for_shutdown_with_timeout() timed out.

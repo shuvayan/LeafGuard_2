@@ -5,11 +5,137 @@ import logging
 import os
 import time
 import tensorflow as tf
-from anthropic import Anthropic
 
 from pathlib import Path
 from leafguard_capstone.prediction_service.predictions import make_prediction
+# Add these imports at the top of main.py
+from transformers import pipeline
+import torch
 
+apk = 'your_api_key'
+
+# def get_disease_treatment(disease_name):
+#     """
+#     Generate treatment information using local BLOOMZ model
+#     """
+#     try:
+#         print("\n🤖 Loading local language model...")
+#         generator = pipeline(
+#             "text-generation",
+#             model="bigscience/bloomz-560m",
+#             device="cuda" if torch.cuda.is_available() else "cpu"
+#         )
+        
+#         # More structured prompt with explicit formatting
+#         prompt = f"""Task: Generate a plant disease analysis report.
+# Disease Name: {disease_name}
+
+# Please provide information in the following format:
+
+# DESCRIPTION:
+# [Brief overview of the disease and its impact on plants]
+
+# DIAGNOSIS:
+# - [Key symptom 1]
+# - [Key symptom 2]
+# - [Key symptom 3]
+
+# TREATMENT:
+# 1. Cultural Controls:
+#    - [Method 1]
+#    - [Method 2]
+
+# 2. Chemical Controls:
+#    - [Product 1]
+#    - [Product 2]
+
+# 3. Prevention:
+#    - [Strategy 1]
+#    - [Strategy 2]
+
+# END REPORT"""
+        
+#         print("\n📝 Generating treatment information...")
+#         response = generator(
+#             prompt,
+#             max_length=800,
+#             min_length=200,
+#             temperature=0.7,
+#             top_p=0.9,
+#             num_return_sequences=1,
+#             do_sample=True,
+#             truncation=True,
+#             repetition_penalty=1.2
+#         )[0]['generated_text']
+        
+#         # Clean up response
+#         cleaned_response = response.split("Disease Name:")[1] if "Disease Name:" in response else response
+#         cleaned_response = cleaned_response.replace(prompt, "").strip()
+        
+#         # Add formatting
+#         if not cleaned_response.startswith("DESCRIPTION"):
+#             cleaned_response = f"Analysis for {disease_name}:\n\n" + cleaned_response
+            
+#         return cleaned_response
+        
+#     except Exception as e:
+#         print(f"\n❌ Error generating treatment: {str(e)}")
+#         return f"Treatment information unavailable: {str(e)}"
+
+import google.generativeai as palm
+
+import google.generativeai as genai
+
+def get_disease_treatment(disease_name):
+    """
+    Generate treatment information using Google PaLM API
+    """
+    try:
+        # Configure API
+        genai.configure(api_key=apk)
+        
+        # Initialize model
+        model = genai.GenerativeModel('gemini-pro')
+        
+        # Structured prompt
+        prompt = f"""Generate a detailed plant disease analysis report for: {disease_name}
+
+Please provide the following information:
+
+DESCRIPTION:
+[Provide brief overview of the disease]
+
+DIAGNOSIS:
+- [List main symptoms]
+- [List identifying characteristics]
+- [List potential damage indicators]
+
+TREATMENT PLAN:
+1. Cultural Controls:
+   - [List recommended cultural practices]
+   - [List preventive measures]
+
+2. Chemical Controls:
+   - [List appropriate fungicides/pesticides if applicable]
+   - [List application timing and methods]
+
+3. Prevention:
+   - [List prevention strategies]
+   - [List long-term management practices]"""
+
+        # Generate response
+        response = model.generate_content(prompt)
+        
+        # Check if we got a valid response
+        if response.text:
+            return response.text
+        else:
+            return "Unable to generate treatment information. Please try again."
+            
+    except Exception as e:
+        print(f"\n❌ Error generating treatment: {str(e)}")
+        return f"Treatment information unavailable: {str(e)}"
+    
 
 def setup_logging(log_level=logging.INFO):
     logging.basicConfig(
@@ -80,20 +206,20 @@ DISEASE_CLASSES = [
     'Tomato___Target_Spot', 'Tomato___Tomato_mosaic_virus', 'Tomato___Tomato_Yellow_Leaf_Curl_Virus'
 ]
 
-def get_disease_treatment(disease_name):
-    anthropic = Anthropic(api_key='')
-    prompt = f"Generate a complete description, diagnosis and treatment plan for: {disease_name}"
-    
-    try:
-        message = anthropic.messages.create(
-            model="claude-3-sonnet-20240229",
-            max_tokens=1000,
-            temperature=0,
-            messages=[{"role": "user", "content": prompt}]
-        )
-        return message.content
-    except Exception as e:
-        return f"Treatment information unavailable: {str(e)}"
+#def get_disease_treatment(disease_name):
+#    anthropic = Anthropic(api_key='')
+#    prompt = f"Generate a complete description, diagnosis and treatment plan for: {disease_name}"
+#    
+#    try:
+#        message = anthropic.messages.create(
+#            model="claude-3-sonnet-20240229",
+#            max_tokens=1000,
+#            temperature=0,
+#            messages=[{"role": "user", "content": prompt}]
+#        )
+#        return message.content
+#    except Exception as e:
+#        return f"Treatment information unavailable: {str(e)}"
 
 def format_prediction_output(results: dict) -> str:
     try:
@@ -156,4 +282,4 @@ if __name__ == '__main__':
 
 # Usage:
 # python leafguard_capstone/main.py --input_path ~/Downloads/IISC/leafguard_capstone/datasets/Working_Images/crn.jpg --augment
-# python leafguard_capstone/main.py --input_path ~/Downloads/IISC/leafguard_capstone/datasets/Working_Images/crn.jpg --augment --verbose
+# python leafguard_capstone/main.py --input_path ~/Downloads/IISC/leafguard_capstone/datasets/Working_Images/glb.jpeg --augment --verbose >> output.txt 2>&1
