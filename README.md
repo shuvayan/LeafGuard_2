@@ -48,7 +48,7 @@ Phase 6: Learnings Objective: The challenges encountered during the development 
 
 # Package Structure :
 
-![Screenshot 2024-12-29 at 14 26 39](https://github.com/user-attachments/assets/7b7642c3-69c1-4628-a5d9-f9eaa452ece2)
+![alt text](image-1.png)
 
 # To run this package:
 1. Git Clone : 'https://github.com/shuvayan/LeafGuard_2.git'
