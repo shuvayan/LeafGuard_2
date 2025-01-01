@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "leafguard-capstone"
-version = "0.3.0"
+version = "0.4.0"
 description = "A package for plant disease detection and analysis"
 authors = ["Your Name <your_email@example.com>"]
 license = "MIT"

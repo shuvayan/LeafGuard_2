@@ -134,3 +134,127 @@ Grape leaf blight, caused by the fungus _Isariopsis clavispora_, is a common dis
 ✅ Analysis complete! (Time: 11.86s)
 WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
 E0000 00:00:1735709450.808758   79203 init.cc:229] grpc_wait_for_shutdown_with_timeout() timed out.
+2025-01-01 16:00:42,639 - leafguard_capstone.data_processing.generators - INFO - Found 39 classes
+2025-01-01 16:00:42,640 - VotingEnsemble - INFO - Initializing BaseEnsemble
+/Users/sangeetadutta/Downloads/IISC/leafguard_capstone/leafguard_capstone
+/Users/sangeetadutta/Downloads/IISC/leafguard_capstone
+/Users/sangeetadutta/Downloads/IISC/leafguard_capstone/leafguard_capstone/processed_data
+/Users/sangeetadutta/Downloads/IISC/leafguard_capstone/leafguard_capstone/saved_models
+
+🌿 Starting LeafGuard Plant Disease Prediction...
+📸 Analyzing image: /Users/sangeetadutta/Downloads/IISC/leafguard_capstone/datasets/Working_Images/glb.jpeg
+🔄 Augmentation: enabled
+
+⚙️  Processing...
+Loading models:   0%|          | 0/3 [00:00<?, ?it/s]2025-01-01 16:00:42,672 - h5py._conv - DEBUG - Creating converter from 3 to 5
+2025-01-01 16:00:43,275 - absl - WARNING - Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+2025-01-01 16:00:43,280 - VotingEnsemble - INFO - Loaded model: mobilenetV2
+Loading models:  33%|███▎      | 1/3 [00:00<00:01,  1.62it/s]2025-01-01 16:00:44,473 - absl - WARNING - Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+2025-01-01 16:00:44,477 - VotingEnsemble - INFO - Loaded model: densenet
+Loading models:  67%|██████▋   | 2/3 [00:01<00:00,  1.04it/s]2025-01-01 16:00:45,079 - absl - WARNING - Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+2025-01-01 16:00:45,083 - VotingEnsemble - INFO - Loaded model: xception
+Loading models: 100%|██████████| 3/3 [00:02<00:00,  1.25it/s]Loading models: 100%|██████████| 3/3 [00:02<00:00,  1.24it/s]
+2025-01-01 16:00:45,083 - VotingEnsemble - INFO - Voting Ensemble initialized successfully
+2025-01-01 16:00:45,083 - AveragingEnsemble - INFO - Initializing BaseEnsemble
+Loading models:   0%|          | 0/3 [00:00<?, ?it/s]2025-01-01 16:00:45,083 - AveragingEnsemble - INFO - Loaded model from cache: mobilenetV2
+2025-01-01 16:00:45,083 - AveragingEnsemble - INFO - Loaded model from cache: densenet
+2025-01-01 16:00:45,083 - AveragingEnsemble - INFO - Loaded model from cache: xception
+Loading models: 100%|██████████| 3/3 [00:00<00:00, 19599.55it/s]
+2025-01-01 16:00:45,084 - AveragingEnsemble - INFO - Averaging Ensemble initialized successfully
+2025-01-01 16:00:45,084 - leafguard_capstone.prediction_service.predictions - INFO - Components initialized successfully
+
+❌ Error generating treatment: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+
+📊 Results:
+
+Prediction Results:
+--------------------------------------------------
+Image: /Users/sangeetadutta/Downloads/IISC/leafguard_capstone/datasets/Working_Images/glb.jpeg
+Voting Ensemble Prediction: Grape___Leaf_blight_(Isariopsis_Leaf_Spot)
+Averaging Ensemble Prediction: Grape___Leaf_blight_(Isariopsis_Leaf_Spot)
+
+Treatment Information:
+--------------------------------------------------
+Treatment information unavailable: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+
+✅ Analysis complete! (Time: 7.78s)
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1735727453.463890  236797 init.cc:229] grpc_wait_for_shutdown_with_timeout() timed out.
+2025-01-01 16:03:49,671 - leafguard_capstone.data_processing.generators - INFO - Found 39 classes
+2025-01-01 16:03:49,672 - VotingEnsemble - INFO - Initializing BaseEnsemble
+/Users/sangeetadutta/Downloads/IISC/leafguard_capstone/leafguard_capstone
+/Users/sangeetadutta/Downloads/IISC/leafguard_capstone
+/Users/sangeetadutta/Downloads/IISC/leafguard_capstone/leafguard_capstone/processed_data
+/Users/sangeetadutta/Downloads/IISC/leafguard_capstone/leafguard_capstone/saved_models
+
+🌿 Starting LeafGuard Plant Disease Prediction...
+📸 Analyzing image: /Users/sangeetadutta/Downloads/IISC/leafguard_capstone/datasets/Working_Images/glb.jpeg
+🔄 Augmentation: enabled
+
+⚙️  Processing...
+Loading models:   0%|          | 0/3 [00:00<?, ?it/s]2025-01-01 16:03:49,707 - h5py._conv - DEBUG - Creating converter from 3 to 5
+2025-01-01 16:03:50,308 - absl - WARNING - Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+2025-01-01 16:03:50,312 - VotingEnsemble - INFO - Loaded model: mobilenetV2
+Loading models:  33%|███▎      | 1/3 [00:00<00:01,  1.63it/s]2025-01-01 16:03:51,500 - absl - WARNING - Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+2025-01-01 16:03:51,503 - VotingEnsemble - INFO - Loaded model: densenet
+Loading models:  67%|██████▋   | 2/3 [00:01<00:00,  1.05it/s]2025-01-01 16:03:52,070 - absl - WARNING - Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+2025-01-01 16:03:52,073 - VotingEnsemble - INFO - Loaded model: xception
+Loading models: 100%|██████████| 3/3 [00:02<00:00,  1.29it/s]Loading models: 100%|██████████| 3/3 [00:02<00:00,  1.26it/s]
+2025-01-01 16:03:52,074 - VotingEnsemble - INFO - Voting Ensemble initialized successfully
+2025-01-01 16:03:52,074 - AveragingEnsemble - INFO - Initializing BaseEnsemble
+Loading models:   0%|          | 0/3 [00:00<?, ?it/s]2025-01-01 16:03:52,074 - AveragingEnsemble - INFO - Loaded model from cache: mobilenetV2
+2025-01-01 16:03:52,074 - AveragingEnsemble - INFO - Loaded model from cache: densenet
+2025-01-01 16:03:52,074 - AveragingEnsemble - INFO - Loaded model from cache: xception
+Loading models: 100%|██████████| 3/3 [00:00<00:00, 19599.55it/s]
+2025-01-01 16:03:52,074 - AveragingEnsemble - INFO - Averaging Ensemble initialized successfully
+2025-01-01 16:03:52,074 - leafguard_capstone.prediction_service.predictions - INFO - Components initialized successfully
+
+❌ Error generating treatment: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+
+📊 Results:
+
+Prediction Results:
+--------------------------------------------------
+Image: /Users/sangeetadutta/Downloads/IISC/leafguard_capstone/datasets/Working_Images/glb.jpeg
+Voting Ensemble Prediction: Grape___Leaf_blight_(Isariopsis_Leaf_Spot)
+Averaging Ensemble Prediction: Grape___Leaf_blight_(Isariopsis_Leaf_Spot)
+
+Treatment Information:
+--------------------------------------------------
+Treatment information unavailable: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+
+✅ Analysis complete! (Time: 7.73s)
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1735727640.439958  239753 init.cc:229] grpc_wait_for_shutdown_with_timeout() timed out.

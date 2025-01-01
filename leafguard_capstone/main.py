@@ -11,8 +11,9 @@ from leafguard_capstone.prediction_service.predictions import make_prediction
 # Add these imports at the top of main.py
 from transformers import pipeline
 import torch
+from leafguard_capstone.gradio_ui.llm_integration import apk
 
-apk = 'your_api_key'
+apk = apk
 
 # def get_disease_treatment(disease_name):
 #     """
@@ -82,7 +83,6 @@ apk = 'your_api_key'
 #         print(f"\n❌ Error generating treatment: {str(e)}")
 #         return f"Treatment information unavailable: {str(e)}"
 
-import google.generativeai as palm
 
 import google.generativeai as genai
 
@@ -168,19 +168,24 @@ Examples:
 
     # With verbose logging
     python main.py --input_path /path/to/image.jpg --verbose
+    
+    # Launch UI
+    python main.py --ui
         """
     )
     
+    # Make input_path optional when using UI
     parser.add_argument(
         '--input_path', 
         type=validate_path,
-        required=True,
+        required=False,  # Changed from True
         help='Path to the leaf image file'
     )
     
     parser.add_argument(
         '--augment', 
         action='store_true',
+        required=False,
         help='Apply augmentation during prediction'
     )
     
@@ -188,6 +193,13 @@ Examples:
         '--verbose', 
         action='store_true',
         help='Enable verbose logging'
+    )
+    
+    # Add UI argument
+    parser.add_argument(
+        '--ui',
+        action='store_true',
+        help='Launch the web interface'
     )
     
     return parser.parse_args()
@@ -248,6 +260,18 @@ def main():
     try:
         print("\n🌿 Starting LeafGuard Plant Disease Prediction...")
         args = parse_arguments()
+
+        # Handle UI mode
+        if args.ui:
+            from leafguard_capstone.gradio_ui.main import launch_ui
+            print("\n🚀 Launching web interface...")
+            launch_ui()
+            return 0
+            
+        # Validate input path for CLI mode
+        if not args.input_path:
+            print("\n❌ Error: --input_path is required when not using --ui")
+            return 1
         
         log_level = logging.DEBUG if args.verbose else logging.INFO
         logger = setup_logging(log_level)
@@ -283,3 +307,4 @@ if __name__ == '__main__':
 # Usage:
 # python leafguard_capstone/main.py --input_path ~/Downloads/IISC/leafguard_capstone/datasets/Working_Images/crn.jpg --augment
 # python leafguard_capstone/main.py --input_path ~/Downloads/IISC/leafguard_capstone/datasets/Working_Images/glb.jpeg --augment --verbose >> output.txt 2>&1
+# python leafguard_capstone/main.py --ui

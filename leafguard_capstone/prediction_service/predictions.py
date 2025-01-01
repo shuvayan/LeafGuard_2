@@ -106,7 +106,7 @@ class PredictionService:
             self.logger.error(f"Prediction failed: {str(e)}")
             raise
 
-def make_prediction(image_path: str, apply_augmentation: bool = False) -> Dict:
+def make_prediction(image_path: str, apply_augmentation: bool = True) -> Dict:
     try:
         service = PredictionService()
         return service.predict(image_path, apply_augmentation)

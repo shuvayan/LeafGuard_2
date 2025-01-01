@@ -29,18 +29,47 @@ from collections import Counter
 
 
 
+# In data_processing/generators.py
+
 class SingleImageGenerator:
     """Lightweight generator for single image prediction"""
     def __init__(self, preprocessed_image: np.ndarray):
+        """
+        Initialize with preprocessed image
+        
+        Args:
+            preprocessed_image: Numpy array of shape (1, height, width, channels)
+        """
         self.preprocessed_image = preprocessed_image
         self.batch_size = 1
-        self.labels = None
+        self.n = 1
+        self.i = 0
         
     def __iter__(self):
-        yield self.preprocessed_image
-        
+        """Make the class iterable"""
+        self.i = 0
+        return self
+    
+    def __next__(self):
+        """Get next batch"""
+        if self.i < self.n:
+            self.i += 1
+            return self.preprocessed_image
+        else:
+            raise StopIteration()
+            
     def reset(self):
-        pass
+        """Reset the generator"""
+        self.i = 0
+
+    def __len__(self):
+        """Return the number of batches"""
+        return self.n
+
+    # Add Tensorflow Dataset compatibility method
+    def as_numpy_iterator(self):
+        """Make compatible with TensorFlow's prediction methods"""
+        return iter([self.preprocessed_image])
 
 class DataProcessor:
     def __init__(self, base_dir: str, img_size: Tuple[int, int] = (224, 224)):
@@ -73,6 +102,35 @@ class DataProcessor:
         
         # Logger setup
         self.logger = logging.getLogger(__name__)
+        
+        # Initialize class names
+        self._initialize_class_names()
+
+    def _initialize_class_names(self) -> None:
+        try:
+            train_path = os.path.join(self.base_dir, "train")
+            if not os.path.exists(train_path):
+                raise ValueError(f"Train directory not found at: {train_path}")
+            
+            # Get the disease classes directly from the train directory
+            class_dirs = [d for d in os.listdir(train_path) 
+                     if os.path.isdir(os.path.join(train_path, d))]
+            
+            if not class_dirs:
+                raise ValueError("No class directories found in train directory")
+            
+            self.class_names = sorted(class_dirs)
+            self.logger.info(f"Found {len(self.class_names)} classes")
+        
+        except Exception as e:
+            self.logger.error(f"Error initializing class names: {str(e)}")
+            raise
+
+    def get_class_names(self) -> List[str]:
+        """Get list of class names from the dataset directory"""
+        if not hasattr(self, 'class_names') or not self.class_names:
+            self._initialize_class_names()
+        return self.class_names
 
     def process_single_image(self, image_path: str, apply_augmentation: bool = False) -> np.ndarray:
         """
@@ -80,18 +138,22 @@ class DataProcessor:
         
         Args:
             image_path: Path to the image file
-            apply_augmentation: Whether to apply data augmentation
+            apply_augmentation: Whether to apply augmentation
             
         Returns:
-            Preprocessed image array
+            Preprocessed image array of shape (1, height, width, channels)
         """
         if not os.path.exists(image_path):
             raise FileNotFoundError(f"Image not found: {image_path}")
-            
+
         try:
             img = load_img(image_path, target_size=self.img_size)
             img_array = img_to_array(img)
-            
+
+            if img_array.size == 0:
+                self.logger.error(f"Preprocessed image is empty for {image_path}")
+                raise ValueError("Preprocessed image array is empty.")
+        
             if apply_augmentation:
                 img_array = np.expand_dims(img_array, 0)
                 for batch in self.train_datagen.flow(img_array, batch_size=1):
@@ -100,9 +162,14 @@ class DataProcessor:
             else:
                 img_array = img_array / 255.0
                 img_array = np.expand_dims(img_array, 0)
-                
+
+            if len(img_array.shape) != 4:
+                self.logger.error(f"Invalid image array shape for {image_path}: {img_array.shape}")
+                raise ValueError("Invalid image array shape. Expected (1, height, width, channels).")
+
+            self.logger.info(f"Processed image shape: {img_array.shape}")
             return img_array
-            
+
         except Exception as e:
             self.logger.error(f"Error processing image {image_path}: {str(e)}")
             raise
@@ -116,10 +183,21 @@ class DataProcessor:
             apply_augmentation: Whether to apply data augmentation
             
         Returns:
-            SingleImageGenerator instance
+            SingleImageGenerator instance with preprocessed image
         """
         processed_image = self.process_single_image(image_path, apply_augmentation)
         return SingleImageGenerator(processed_image)
+
+    def get_class_names(self) -> List[str]:
+        """
+        Get list of class names from the dataset directory
+        
+        Returns:
+            List of class names
+        """
+        if not hasattr(self, 'class_names') or not self.class_names:
+            self._initialize_class_names()
+        return self.class_names
 
     def _get_file_paths(self) -> Dict[str, List]:
         """
@@ -131,7 +209,7 @@ class DataProcessor:
         image_paths = []
         labels = []
         
-        for class_name in os.listdir(self.base_dir):
+        for class_name in self.get_class_names():
             class_dir = os.path.join(self.base_dir, class_name)
             if not os.path.isdir(class_dir):
                 continue
@@ -294,14 +372,3 @@ class DataProcessor:
 
         self.logger.info("Data generators created successfully")
         return train_generator, valid_generator, test_generator
-
-    def get_class_names(self) -> List[str]:
-        """
-        Get list of class names from the dataset directory
-        
-        Returns:
-            List of class names
-        """
-        class_names = sorted([d for d in os.listdir(self.train_dir) 
-                            if os.path.isdir(os.path.join(self.train_dir, d))])
-        return class_names

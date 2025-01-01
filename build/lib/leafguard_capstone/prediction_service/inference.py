@@ -10,9 +10,10 @@ from tensorflow.keras.preprocessing.image import (
     img_to_array,
     array_to_img
 )
+from PIL import Image
 
-from leafguard_capstone.data_processing.generators import DataProcessor
-from leafguard_capstone.model_training.ensembles import VotingEnsemble, AveragingEnsemble, compare_ensembles_with_mlflow
+from leafguard_capstone.data_processing.generators import DataProcessor,SingleImageGenerator
+from leafguard_capstone.model_training.ensembles import VotingEnsemble, AveragingEnsemble
 from leafguard_capstone.config.core import TRAINED_MODEL_DIR, DATASET_DIR
 
 class ImagePredictor:
@@ -21,64 +22,86 @@ class ImagePredictor:
         self.averaging_ensemble = averaging_ensemble
         self.img_size = img_size
         self.test_gen = test_gen
-        self.class_names = list(test_gen.class_indices.keys()) if test_gen else None
+        self.class_names = None
+        self.logger = logging.getLogger(__name__)
+        self.processor = DataProcessor(base_dir="", img_size=img_size)
 
-    def preprocess_image(self, image_path):
-        img = load_img.open(image_path)
-        img = img.resize(self.img_size)
-        img_array = tf.keras.preprocessing.image.img_to_array(img)
-        img_array = np.expand_dims(img_array, axis=0)
-        img_array = img_array / 255.0
-        return img_array
-
-    def predict_image(self, image_path):
+    def predict_image(self, image_path, processor=None):
         if not os.path.exists(image_path):
             raise FileNotFoundError(f"Image file not found: {image_path}")
 
-        img_array = self.preprocess_image(image_path)
-        test_generator = tf.data.Dataset.from_tensor_slices(img_array).batch(1)
+        try:
+            img_array = self.preprocess_image(image_path)
+            img_gen = SingleImageGenerator(img_array)
+            
+            voting_pred = self.voting_ensemble.predict_and_evaluate(
+                img_gen, get_metrics=False)
+            averaging_pred = self.averaging_ensemble.predict_and_evaluate(
+                img_gen, get_metrics=False)
 
-        voting_pred = self.voting_ensemble.predict_and_evaluate(
-            test_generator, get_metrics=False)
-        averaging_pred = self.averaging_ensemble.predict_and_evaluate(
-            test_generator, get_metrics=False)
+            # Use provided processor or local processor for class names
+            if processor:
+                self.class_names = processor.get_class_names()
+            elif not self.class_names:
+                if self.test_gen:
+                    self.class_names = list(self.test_gen.class_indices.keys())
+                else:
+                    self.class_names = self.processor.get_class_names()
 
-        voting_class = self.class_names[voting_pred[0]]
-        averaging_class = self.class_names[averaging_pred[0]]
+            if not self.class_names:
+                raise ValueError("No class names available")
 
-        return {
-            'voting_prediction': voting_class,
-            'averaging_prediction': averaging_class,
-            'image_path': image_path
-        }
+            voting_class = self.class_names[voting_pred[0]]
+            averaging_class = self.class_names[averaging_pred[0]]
+
+            return {
+                'voting_prediction': voting_class,
+                'averaging_prediction': averaging_class,
+                'image_path': image_path
+            }
+            
+        except Exception as e:
+            self.logger.error(f"Error predicting image {image_path}: {str(e)}")
+            raise e
 
 class InferenceService:
+    _instance = None
+
+    def __new__(cls):
+        if not cls._instance:
+            cls._instance = super().__new__(cls)
+            cls._instance._initialized = False
+        return cls._instance
+
     def __init__(self, model_configs: Optional[list] = None):
-        self.logger = logging.getLogger(__name__)
-        self.logger.info("Initializing InferenceService")
-        
-        self.model_configs = model_configs or [
-            {'name': 'mobilenetV2', 'file': 'base_model_1_mobilenetV2.h5'},
-            {'name': 'densenet', 'file': 'base_model_2_densenet.h5'},
-            {'name': 'xception', 'file': 'base_model_3_xception.h5'}
-        ]
-        
-        self._initialize_components()
-        self.image_predictor = None
+        if not self._initialized:
+            self.logger = logging.getLogger(__name__)
+            self.logger.info("Initializing InferenceService")
+            
+            self.model_configs = model_configs or [
+                {'name': 'mobilenetV2', 'file': 'base_model_1_mobilenetV2.h5'},
+                {'name': 'densenet', 'file': 'base_model_2_densenet.h5'},
+                {'name': 'xception', 'file': 'base_model_3_xception.h5'}
+            ]
+            
+            self._initialize_components()
+            self.image_predictor = None
+            self.test_generator = None
+            self._initialized = True
 
     def _initialize_components(self) -> None:
         try:
-            data_dir = os.path.join(DATASET_DIR, "Plant_leave_diseases_dataset_without_augmentation")
-            self.processor = DataProcessor(data_dir)
-            
+            processed_dir = DATASET_DIR
+            self.processor = DataProcessor(processed_dir)
+        
             self.voting_ensemble = VotingEnsemble(TRAINED_MODEL_DIR, self.model_configs)
             self.averaging_ensemble = AveragingEnsemble(TRAINED_MODEL_DIR, self.model_configs)
-            
+        
             self.logger.info("Successfully initialized all components")
-            
+        
         except Exception as e:
             self.logger.error(f"Error initializing components: {str(e)}")
-            raise
+            raise 
 
     def predict(self, image_path: str, mode: str = 'predict', apply_augmentation: bool = False) -> Dict:
         """
@@ -93,16 +116,24 @@ class InferenceService:
             Dictionary containing prediction results
         """
         try:
+            self.logger.info(f"Starting prediction in {mode} mode for path: {image_path}")
+            
             if mode == 'predict':
                 return self.predict_single_image(image_path, apply_augmentation)
+                
             elif mode == 'retrain':
-                self.initialize_dataset_processing()
+                # Initialize dataset processing if not already done
+                if self.test_generator is None:
+                    self.initialize_dataset_processing()
+                
+                # Initialize image predictor if needed
                 if self.image_predictor is None:
                     self.image_predictor = ImagePredictor(
                         self.voting_ensemble,
                         self.averaging_ensemble,
                         test_gen=self.test_generator
                     )
+                
                 return self.image_predictor.predict_image(image_path)
             else:
                 raise ValueError(f"Invalid mode: {mode}. Use 'predict' or 'retrain'")

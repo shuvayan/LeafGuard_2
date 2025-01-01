@@ -26,7 +26,7 @@ CONFIG_FILE_PATH = PACKAGE_ROOT / "config.yaml"
 print(PACKAGE_ROOT)
 print(ROOT)
 
-DATASET_DIR = PACKAGE_ROOT / "datasets"
+DATASET_DIR = PACKAGE_ROOT / "processed_data"
 TRAINED_MODEL_DIR = PACKAGE_ROOT / "saved_models"
 
 print(DATASET_DIR)

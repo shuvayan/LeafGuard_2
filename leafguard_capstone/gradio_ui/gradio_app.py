@@ -1,21 +1,62 @@
-import gradio as gr
 import os
 
+# Get the current file's directory
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# Construct path to logo in assets folder
+logo_path = os.path.join(current_dir, "assets", "logo.png")
+
+import gradio as gr
+from pathlib import Path
+from leafguard_capstone.prediction_service.predictions import make_prediction
+from leafguard_capstone.gradio_ui.llm_integration import LLMService,apk
+
+
+
+# Initialize LLM service
+llm_service = LLMService(apk)
+
 # List of supported languages
-languages = ["English", "हिंदी", "ಕನ್ನಡ", "मराठी", "తెలుగు", "മലയാളം", "ਪੰਜਾਬੀ", "ଓଡ଼ିଆ", "বাংলা"]
+languages = ["English", "हिंदी", "ಕನ್ನಡ", "मराठी", "తెలుగు", "മലയാളം", "ਪੰਜਾਬੀ", "ଓଡ଼ിଆ", "বাংলা"]
 
 def process_image(image, language):
-    # Placeholder for image processing logic
-    return "Plant analysis results would appear here"
+    try:
+        if image is None:
+            return "Please upload an image first."
+            
+        # Run prediction using the uploaded image
+        results = make_prediction(image.name, apply_augmentation=True)
+        disease_name = results['voting_prediction']
+        
+        # Format output
+        output = "🔍 ANALYSIS RESULTS\n"
+        output += "=" * 50 + "\n\n"
+        output += "📊 PREDICTION\n"
+        output += f"Detected Disease: {disease_name}\n"
+        output += f"Confidence: {results['averaging_prediction']}\n\n"
+        
+        # Get treatment if disease detected
+        if 'healthy' not in disease_name.lower():
+            treatment = llm_service.get_disease_treatment(disease_name)
+            output += "💊 TREATMENT INFORMATION\n"
+            output += "=" * 50 + "\n"
+            output += treatment
+        else:
+            output += "✅ Plant appears healthy! No treatment needed."
+            
+        return output
+        
+    except Exception as e:
+        return f"Error processing image: {str(e)}"
 
 def process_question(message, history):
-    # Placeholder for chat processing logic
+    # For now, keep the basic chat response
     return f"Response to: {message}"
 
 def text_to_speech(text):
-    # Placeholder for TTS logic
-    return None  # Return audio file path or audio data
+    # Keep the placeholder for TTS logic
+    return None
 
+# Rest of your original UI code remains exactly the same
 with gr.Blocks(theme=gr.themes.Soft()) as demo:
     # Custom CSS for styling
     gr.HTML("""
@@ -46,7 +87,7 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
     # Header with logo and title
     with gr.Row(elem_classes="header"):
         with gr.Column():
-            gr.Image("logo.png", elem_classes="logo")
+            gr.Image(logo_path, elem_classes="logo")
             gr.Markdown("# Leaf Guard", elem_classes="title")
             gr.Markdown("## Intelligent Plant Disease Detection System")
     
@@ -64,10 +105,10 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
         with gr.Column():
             file_input = gr.File(
                 label="Upload Plant Image",
-                file_types=["image", "pdf"],
+                file_types=["image"],  # Removed PDF
                 file_count="single"
             )
-            gr.Markdown("File type PDF or JPG, 250kb max file size")
+            gr.Markdown("Supported formats: JPG, PNG, JPEG | Max file size: 250kb")
             submit_btn = gr.Button("Submit", variant="primary")
     
     # Observations section with TTS
@@ -76,7 +117,8 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
             observations = gr.Textbox(
                 label="Observations",
                 placeholder="Analysis results will appear here...",
-                interactive=False
+                interactive=False,
+                lines=10  # Increased for better visibility
             )
             audio_output1 = gr.Audio(visible=False)
             tts_btn1 = gr.Button("🔊", elem_classes="tts-button")
@@ -96,7 +138,7 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
                 audio_output2 = gr.Audio(visible=False)
                 tts_btn2 = gr.Button("🔊", elem_classes="tts-button")
     
-    # Event handlers
+    # Event handlers - kept exactly the same
     submit_btn.click(
         fn=process_image,
         inputs=[file_input, language_dropdown],
