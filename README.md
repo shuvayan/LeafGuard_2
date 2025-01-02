@@ -71,14 +71,14 @@ Phase 6: Learnings Objective: The challenges encountered during the development 
 
 # Contributors
 
-ajayaakansha6@gmail.com, 
-deepakraina1988@gmail.com, 
-dilipjr@hotmail.com, 
-harpanhalli.anand@gmail.com, 
-narasimha.murthy.pujari@gmail.com, 
-narasimha.pujari@outlook.com, 
-piyushsharma0306@gmail.com,
-sanil.madathil@gmail.com,
-shailesh.v3@gmail.com, 
-shubhashree.hebri@gmail.com, suyash.work999@gmail.com, 
-vasudeva.renjala@gmail.com
+a. ajayaakansha6@gmail.com, 
+b. deepakraina1988@gmail.com, 
+c. dilipjr@hotmail.com, 
+d. harpanhalli.anand@gmail.com, 
+e. narasimha.murthy.pujari@gmail.com, 
+f. narasimha.pujari@outlook.com, 
+g. piyushsharma0306@gmail.com,
+h. sanil.madathil@gmail.com,
+i. shailesh.v3@gmail.com, 
+j. shubhashree.hebri@gmail.com, suyash.work999@gmail.com, 
+k .vasudeva.renjala@gmail.com
