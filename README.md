@@ -1,4 +1,9 @@
-# LeafGuard_2
+# LeafGuard.io
+
+# Problem Statement 
+Plant diseases account for substantial agricultural losses globally, threatening food security and economic stability. While traditional disease detection relies on visual inspection by experts and farmers, this approach is limited by its dependence on human expertise, time-intensive nature, and potential inconsistencies. 
+To address these challenges, we propose LeafGuard - an automated plant disease detection system powered by artificial intelligence and computer vision. 
+This solution aims to provide rapid, accurate, and accessible disease identification, enabling early intervention and preventive measures. By transforming plant disease detection from a manual to an automated process, LeafGuard seeks to enhance crop protection, reduce agricultural losses, and contribute to global food security through timely and reliable disease diagnostics.
 
  # Approach
 
@@ -22,9 +27,10 @@ Backend Development (FastAPI) FastAPI Endpoint Setup: Disease Detection: Process
 
 The PlantVillage dataset consists of 54303 healthy and unhealthy leaf images divided into 38 categories by species and disease. Please find below the label and the distribution count of images present in the dataset.
 
-Label Count Apple___Apple_scab 630 Apple___Black_rot 621 Apple___Cedar_apple_rust 275 Apple___healthy 1645 Blueberry___healthy 1502 Cherry___healthy 854 Cherry___Powdery_mildew 1052 Corn___Cercospora_leaf_spot Gray_leaf_spot 513 Corn___Common_rust 1192 Corn___healthy 1162 Corn___Northern_Leaf_Blight 985 Grape___Black_rot 1180 Grape___Esca_(Black_Measles) 1383 Grape___healthy 423 Grape___Leaf_blight_(Isariopsis_Leaf_Spot) 1076 Orange___Haunglongbing_(Citrus_greening) 5507 Peach___Bacterial_spot 2297 Peach___healthy 360 Pepper,_bell___Bacterial_spot 997 Pepper,_bell___healthy 1477 Potato___Early_blight 1000 Potato___healthy 152 Potato___Late_blight 1000 Raspberry___healthy 371 Soybean___healthy 5090 Squash___Powdery_mildew 1835 Strawberry___healthy 456 Strawberry___Leaf_scorch 1109 Tomato___Bacterial_spot 2127 Tomato___Early_blight 1000 Tomato___healthy 1591 Tomato___Late_blight 1908 Tomato___Leaf_Mold 952 Tomato___Septoria_leaf_spot 1771 Tomato___Spider_mites Two-spotted_spider_mite 1676 Tomato___Target_Spot 1404 Tomato___Tomato_mosaic_virus 373 Tomato___Tomato_Yellow_Leaf_Curl_Virus 5357 Total Count 54303
-
  # Class Distribution of Plant Village Dataset
+
+ ![image](https://github.com/user-attachments/assets/33d6cd91-5a27-466c-87e3-99287ebd759c)
+
 
 Sample Images Expected Outcomes The project’s efficient AI models and scalable deployment deliver accurate, real-time disease detection and treatment advice. This technology empowers farmers to make informed decisions quickly, increasing crop yield and reducing losses, while multilingual support enhances accessibility, driving overall agricultural productivity and food security. Below are the business impacts that can be achieved.
 
