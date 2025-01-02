@@ -63,7 +63,7 @@ Phase 6: Learnings Objective: The challenges encountered during the development 
 
 # Modeling Architecture :
 
-![alt text](<Screenshot 2025-01-01 at 20.31.08.png>)
+![image](https://github.com/user-attachments/assets/2cb2c584-5e4b-42c7-8a86-836989b22776)
 
 # Network Diagram :
 
